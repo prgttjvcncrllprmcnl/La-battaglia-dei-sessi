@@ -24,69 +24,67 @@ import java.awt.event.ActionListener;
 /**
  * Created by Matteo on 10/06/2017.
  */
-public class Graphics {public static class PieChartDemo2 extends ApplicationFrame {            //PRIMO GRAFICO (Piechart)
+public class Graphics {
 
-    /**
-     * Creates a new demo.
-     *
-     * @param title  the frame title.
-     */
-    public PieChartDemo2(final String title) {
+    public static class PieChartDemo2 extends ApplicationFrame {  //PRIMO GRAFICO (Piechart)
 
-        super(title);
-        // crea un dataset...
-        final PieDataset dataset = createSampleDataset();
-        // crea un grafico...
-        final JFreeChart chart = createChart(dataset);
-        //crea pannello, imposta le dimensioni e aggiunge il grafico al pannello...
-        final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(700, 470));
-        setContentPane(chartPanel);
+        /**
+         * Crea un nuovo grafico
+         * @param title  the frame title.
+         */
+        public PieChartDemo2(final String title) {
+            super(title);
+            // crea un dataset...
+            final PieDataset dataset = createSampleDataset();
+            // crea un grafico...
+            final JFreeChart chart = createChart(dataset);
+            //crea pannello, imposta le dimensioni e aggiunge il grafico al pannello...
+            final ChartPanel chartPanel = new ChartPanel(chart);
+            chartPanel.setPreferredSize(new java.awt.Dimension(700, 470));
+            setContentPane(chartPanel);
+        }
+
+
+        /**
+         * Crea un dataset per il grafico (con i dati iniziali).
+         * @return un dataset.
+         */
+        public PieDataset createSampleDataset() {
+            DefaultPieDataset result = new DefaultPieDataset();
+            result.setValue("Morigerati "+InputController.p.getPercentage(Population.Type.M)+"%",InputController.p.currentPopulation()[0]);
+            result.setValue("Avventurieri "+InputController.p.getPercentage(Population.Type.A)+"%", InputController.p.currentPopulation()[1]);
+            result.setValue("Prudenti "+InputController.p.getPercentage(Population.Type.P)+"%", InputController.p.currentPopulation()[2]);
+            result.setValue("Spregiudicate "+InputController.p.getPercentage(Population.Type.S)+"%", InputController.p.currentPopulation()[3]);
+            return result;
+        }
+
+        /**
+         * Crea un grafico.
+         *
+         * @param dataset il dataset.
+         *
+         * @return Un grafico.
+         */
+        private JFreeChart createChart(final PieDataset dataset) {
+
+            final JFreeChart chart = ChartFactory.createPieChart3D(
+                    "Battaglia Dei Sessi",  // Titolo
+                    dataset,                // dati (dataset)
+                    true,                   // includi legenda
+                    true,                   // tooltips
+                    false                   // urls
+            );
+
+            final PiePlot3D plot = (PiePlot3D) chart.getPlot();      //disegna il grafico a torta 3D usando i dati del dataset
+            plot.setStartAngle(290);                                 //set l'angolo di partenza
+            plot.setDirection(Rotation.CLOCKWISE);                   //direzione in cui vengono disegnati i le sezioni di torta
+            plot.setForegroundAlpha(0.5f);                           //set trasparenza
+            plot.setNoDataMessage("No data to display");             //messaggio da lanciare in assenza di dati
+            return chart;
+
+        }
 
     }
-
-
-    /**
-     * Crea un dataset per il grafico (con i dati iniziali).
-     *
-     * @return un dataset.
-     */
-    public PieDataset createSampleDataset() {
-        DefaultPieDataset result = new DefaultPieDataset();
-        result.setValue("Morigerati "+InputController.p.getPercentage(Individual.Type.M)+"%",InputController.p.currentPopulation()[0]);
-        result.setValue("Avventurieri "+InputController.p.getPercentage(Individual.Type.A)+"%", InputController.p.currentPopulation()[1]);
-        result.setValue("Prudenti "+InputController.p.getPercentage(Individual.Type.P)+"%", InputController.p.currentPopulation()[2]);
-        result.setValue("Spregiudicate "+InputController.p.getPercentage(Individual.Type.S)+"%", InputController.p.currentPopulation()[3]);
-        return result;
-    }
-
-    /**
-     * Crea un grafico.
-     *
-     * @param dataset il dataset.
-     *
-     * @return Un grafico.
-     */
-    private JFreeChart createChart(final PieDataset dataset) {
-
-        final JFreeChart chart = ChartFactory.createPieChart3D(
-                "Battaglia Dei Sessi",  // Titolo
-                dataset,                // dati (dataset)
-                true,                   // includi legenda
-                true,                   // tooltips
-                false                   // urls
-        );
-
-        final PiePlot3D plot = (PiePlot3D) chart.getPlot();      //disegna il grafico a torta 3D usando i dati del dataset
-        plot.setStartAngle(290);                                 //set l'angolo di partenza
-        plot.setDirection(Rotation.CLOCKWISE);                   //direzione in cui vengono disegnati i le sezioni di torta
-        plot.setForegroundAlpha(0.5f);                           //set trasparenza
-        plot.setNoDataMessage("No data to display");             //messaggio da lanciare in assenza di dati
-        return chart;
-
-    }
-
-}
 
     public static class DynamicLineAndTimeSeriesChart extends ApplicationFrame implements ActionListener {      //SECONDO GRAFICO (line timechart)
 
@@ -150,7 +148,7 @@ public class Graphics {public static class PieChartDemo2 extends ApplicationFram
             final JFreeChart result = ChartFactory.createTimeSeriesChart(
                     "Evolution",            //Titolo
                     "Time",                 //Titolo asse x
-                    "Value",                //Titolo asse y
+                    "Relative type percentages",                //Titolo asse y
                     dataset,                //dataset
                     true,                   //legenda
                     true,                   //
@@ -233,7 +231,7 @@ public class Graphics {public static class PieChartDemo2 extends ApplicationFram
          * @param e  the action event.
          */
         public void actionPerformed(final ActionEvent e) {
-            series.add(new Millisecond(), InputController.faiIlPrint(InputController.p.currentPopulation())[0]*100); //so
+            series.add(new Millisecond(), InputController.faiIlPrint(InputController.p.currentPopulation())[0]*100);
             series1.add(new Millisecond(), InputController.faiIlPrint(InputController.p.currentPopulation())[1]*100);
             series2.add(new Millisecond(), InputController.faiIlPrint(InputController.p.currentPopulation())[2]*100);
             series3.add(new Millisecond(), InputController.faiIlPrint(InputController.p.currentPopulation())[3]*100);
