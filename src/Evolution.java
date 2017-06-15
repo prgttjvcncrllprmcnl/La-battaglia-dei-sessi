@@ -21,19 +21,8 @@ public interface Evolution {
 	 * Metodo che crea una famiglia. Chiama i metodi per il numero di figli e loro tipo.
 	 * @param p1 un genitore.
 	 * @param p2 l'altro genitore.
-     * @param i1 l'indice di p1 nella lista delle persone
-     * @param i2 l'indice di p2 nella lista delle persone
-	 * @return true se la famiglia si forma, false altrimenti (a scopo di debugging).
 	 */
-	boolean createFamily(Person<Individual.Type> p1, Person<Individual.Type> p2, int i1, int i2);
-
-	/**
-	 * Metodo che uccide una persona.
-	 * @param p la persona da uccidere.
-	 * @param i l'indice della persona nella lista di persone
-	 * @return true se viene uccisa, false altrimenti (a scopo di debugging).
-	 */
-	boolean killPerson(Person<Individual.Type> p, int i);
+	void createFamily(Population.Type p1, Population.Type p2);
 
     /**
      * Setta i valori di a, b, c.
@@ -42,12 +31,6 @@ public interface Evolution {
      * @param c il costo del corteggiamento.
      */
 	void setValues(int a, int b, int c);
-
-    /**
-     * Metodo che controlla se i valori a, b, c sono stati settati.
-     * @return true se sono stati settati, false altrimenti.
-     */
-	boolean valuesIsSet();
 
     /**
      * Controlla che due stati di una popolazione siano vicini. Per essere vicini, le percentuali dei singoli tipi non
@@ -72,5 +55,5 @@ public interface Evolution {
      * @return la percentuale calcolata.
      * @throws IllegalArgumentException se il tipo non è un tipo ammesso.
      */
-	double getPercentage(Individual.Type t) throws IllegalArgumentException;
+	double getPercentage(Population.Type t) throws IllegalArgumentException;
 }
