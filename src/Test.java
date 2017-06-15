@@ -7,19 +7,20 @@ import javafx.stage.Stage;
  * Created by Daniel on 14/05/2017.
  */
 public class Test extends Application {
-    static Stage finestra = new Stage();
-    static Pane secondaryPane = new Pane();
 
     public static void main(String[] args) {
         launch(args);
     }                  // termina. Può essere invocato una sola volta
 
+    /**
+     * Metodo che lancia la finestra di input
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        finestra = primaryStage;
-        Pane mainPane = FXMLLoader.load(Test.class.getResource("Input.fxml"));
-        secondaryPane = FXMLLoader.load(Test.class.getResource("Aggiunta.fxml"));
-        primaryStage.setTitle("");
+        Pane mainPane = (Pane) FXMLLoader.load(Test.class.getResource("Input.fxml"));
+        primaryStage.setTitle("La battaglia dei sessi");
         primaryStage.setScene(new Scene(mainPane));
         primaryStage.show();
     }
