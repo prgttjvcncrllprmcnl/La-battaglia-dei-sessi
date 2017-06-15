@@ -1,0 +1,8 @@
+Scaricate la src che sta qui. Create un nuovo progetto da intellij. Copiate tutti i file dentro src preso da qui nell'src del nuovo 
+progetto. Estraete il rar di Jfree Chart e mettete la cartella dentro la cartella del progetto creato allo stesso livello di src.
+Quinidi se la cartella del progetto creato si chiama Pippo, Jfree Chart deve stare in Pippo. Poi andate su Intellij, file, project
+structure e cliccate su modules. Aggiungete una nuova libreria e quando vi fa selezionare il path scegliete la cartella lib dentro
+alla cartella di Jfree Chart all'interno del progetto. Dovrebbe funzionare tutto
+
+
+Ho messo anche il file della relazione, dategli un occhio ^^
